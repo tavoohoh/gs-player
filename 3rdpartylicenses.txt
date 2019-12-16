@@ -84,6 +84,7 @@ THE SOFTWARE.
 
 
 gs-player
+MIT
 The MIT License (MIT)
 =====================
 
