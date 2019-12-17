@@ -1,0 +1,36 @@
+{
+  "name": "gs-player",
+  "version": "0.1.7",
+  "description": "Simple and easy to use Angular 8 music player",
+  "keywords": [
+    "angular",
+    "angular music player",
+    "angular audio player",
+    "music",
+    "audio",
+    "music player",
+    "audio player",
+    "rxjs"
+  ],
+  "author": {
+    "name": "Gustavo Santamaria",
+    "email": "tavo_bajares@live.com",
+    "url": "https://github.com/tavoohoh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tavoohoh/gs-player"
+  },
+  "homepage": "https://tavoohoh.github.io/gs-player",
+  "bugs": {
+    "url" : "https://github.com/tavoohoh/gs-player/issues",
+    "email" : "tavo_bajares@live.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "tslib": "^1.10.0",
+    "rxjs": "^6.2.1"
+  }
+}

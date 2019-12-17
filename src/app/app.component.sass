@@ -1,0 +1,50 @@
+.container 
+  display: grid
+  gap: 2rem
+  grid-template-rows: min-content max-content auto
+  padding: 8rem 2rem
+  height: calc(100vh - 16rem)
+
+  h1
+    font-size: 1.9rem
+    color: #222
+    margin: 0
+    text-align: center
+
+  button
+    border: 2px solid #222
+    background: transparent
+    outline: none
+    width: 180px
+    padding: .5rem 1rem
+    cursor: pointer
+    margin: 0 auto
+    &:hover
+      background: #ccc
+
+  .player 
+    align-self: center
+
+.container.dark
+  background: #222
+
+  h1, button
+    color: #fff
+
+  button
+    border: 2px solid #fff
+    &:hover
+      background: #444
+
+  
+@media screen and (max-width: 768px)
+  .container 
+    padding: 4rem 1rem
+    height: calc(100vh - 8rem)
+
+    h1
+      font-size: 1.4rem
+    button
+      border-width: 1px
+      width: 140px
+      font-size: .7rem

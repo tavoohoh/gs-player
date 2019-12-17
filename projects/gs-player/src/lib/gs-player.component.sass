@@ -1,0 +1,212 @@
+/*****************************************\
+  Index
+  - Variables
+  - Player slider
+  - Player layout
+/*****************************************/
+
+/**
+ * Variables
+ */
+$primary: #222
+$secondary: #eee
+$transition: .2s ease-in-out
+
+/**
+ * Player slider
+ */
+.slidecontainer
+  width: 100%
+
+  .slider
+    -webkit-appearance: none
+    width: 100%
+    height: 4px
+    background: var(--secondary, $secondary)
+    border-radius: 12px 
+    outline: none
+    opacity: 0.5
+    cursor: pointer
+    -webkit-transition: $transition
+    transition: opacity $transition
+
+    &:hover
+      opacity: 1
+
+    &::-webkit-slider-thumb
+      border: none
+      -webkit-appearance: none
+      appearance: none
+      width: 10px
+      height: 10px
+      border-radius: 50%
+      background: var(--secondary, $secondary)
+      cursor: pointer
+      opacity: 0.8
+      &:hover, &:active, &:focus
+        opacity: 1
+
+    &::-moz-range-thumb
+      border: none
+      width: 10px
+      height: 10px
+      border-radius: 50%
+      background: var(--secondary, $secondary)
+      cursor: pointer
+      opacity: 0.8
+      &:hover, &:active, &:focus
+        opacity: 1
+
+/**
+ * Player layout
+ */
+.gs-player
+  position: relative
+  padding: 2rem
+
+  .media-title
+    text-align: center
+    letter-spacing: 1px
+    color: var(--primary, $primary)
+    margin-bottom: 1rem
+    .file
+      font-weight: bold
+  
+  .media-text
+    opacity: 0.8
+    color: var(--primary, $primary)
+  
+  .media-ui
+    display: grid
+    grid-template-columns: 100px auto 50px
+    gap: 2rem
+
+    .media-control, .media-status, .media-list
+      display: grid
+      span
+        align-self: center
+        margin: 0 auto
+
+    .media-control
+      grid-template-columns: repeat(3, 1fr)
+      gap: .5rem
+
+    .media-status
+      grid-template-columns: 40px auto 40px
+      gap: 2rem
+
+/**
+ * Icons/SVG
+ */
+svg.icon
+  width: 20px
+  cursor: pointer
+  fill: var(--primary, $primary)
+  transition: $transition
+  opacity: 0.8
+  &:hover
+    opacity: 1
+
+/**
+ * UI status and others
+ */
+.disabled
+  opacity: .3
+  cursor: default
+  pointer-events: none
+
+.ellipsis
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
+/**
+ * Player play list
+ */
+.play-list-container
+  border-radius: 4px
+  background: var(--secondary, $secondary)
+  width: 220px
+
+  position: absolute
+  top: 16px
+  z-index: 10000
+  right: 90px
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.15), 0 10px 10px rgba(0,0,0,0.12)
+
+  .play-list
+    max-height: 130px
+    overflow-y: auto
+    .file
+      cursor: pointer
+      padding: .5rem
+      font-size: .7rem
+      background: rgba(0, 0, 0, 0)
+      transition: $transition
+
+      .file-title
+        display: block
+        font-size: .9rem
+        font-weight: bold
+      &:hover
+        background: rgba(0, 0, 0, .1)
+
+
+/**
+ * Mobile
+ */
+@media screen and (max-width: 768px)
+  .gs-player
+    padding: 1rem
+
+    .media-title
+      text-align: left
+      font-size: .7rem
+
+      .file
+        display: block
+        font-size: 1.1rem
+        margin-bottom: 4px
+    
+    .media-text
+      color: var(--secondary, $secondary)
+    
+    .media-ui
+      grid-template-columns: auto
+      gap: 1rem
+
+      .media-control
+        grid-row: 2
+        
+      .media-status
+        grid-template-columns: min-content auto min-content
+        grid-template-rows: min-content min-content
+        grid-row: 1
+        gap: 3px
+
+        .media-text.duration, .media-text.currenttime
+          font-size: .7rem
+
+        .currenttime
+          grid-row: 2
+          grid-column: 1
+
+        .slidecontainer
+          grid-row: 1
+          grid-column: 1 / 4
+        
+        .duration
+          grid-row: 2
+          grid-column: 3
+        
+      .media-list
+        display: inline-block
+        position: absolute
+        top: 1.4rem
+        right: 1rem
+  
+  .play-list-container
+    right: 51px
+
+  

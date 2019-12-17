@@ -1,0 +1,95 @@
+<!-- main player -->
+<div class="'player-wrapper">
+  <div class="gs-player" [style]="sanitizedPlayerTheme">
+    <ng-container *ngTemplateOutlet="playlist"></ng-container>
+
+    <div class="media-title" *ngIf="currentFile">
+      <span class="file">{{ currentFile.file.name }}</span>
+      <ng-container *ngIf="playerConfig && playerConfig.artistAlbumSeparator">
+        {{ playerConfig.artistAlbumSeparator }}
+      </ng-container>
+      {{ currentFile.file.artist }}
+    </div>
+
+    <div class="media-ui">
+      <!-- previous, play, next -->
+      <div class="media-control">
+        <!-- previous button -->
+        <span [class.disabled]="isFirstPlaying()" (click)="previous()">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M4 2v20h-2v-20h2zm18 0l-16 10 16 10v-20z" /></svg>
+        </span>
+        <!-- play button -->
+        <span class="play-pause-btn" [class.disabled]="state?.error" (click)="play()" *ngIf="!state?.playing">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M3 22v-20l18 10-18 10z" /></svg>
+        </span>
+        <!-- pause button -->
+        <span class="play-pause-btn" (click)="pause()" *ngIf="state?.playing">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M10 24h-6v-24h6v24zm10-24h-6v24h6v-24z" /></svg>
+        </span>
+        <!-- next button -->
+        <span [class.disabled]="isLastPlaying()" (click)="next()">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M20 22v-20h2v20h-2zm-18 0l16-10-16-10v20z" /></svg>
+        </span>
+      </div>
+
+      <!-- track time -->
+      <div class="media-status">
+        <!-- Track time -->
+        <span class="media-text currenttime">
+          {{ state?.readableCurrentTime || '00:00:00' }}
+        </span>
+        <!-- Track progress -->
+        <div class="slidecontainer">
+          <input #trackSlider class="slider" type="range"
+            step="1"
+            [min]="0"
+            [max]="state?.duration"
+            [value]="state?.currentTime || 0"
+            [class.disabled]="state?.error || currentFile.index === undefined"
+            (input)="onSliderChangeEnd($event)">
+        </div>
+        <!-- Track duration -->
+        <span class="media-text duration">
+          {{ state?.readableDuration || '00:00:00' }}
+        </span>
+      </div>
+
+      <!-- other options -->
+      <div class="media-list">
+        <!-- playlist button -->
+        <span (click)="tooglePlayList()">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" /></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- floating play list -->
+<ng-template #playlist>
+  <ng-container *ngIf="showPlayList">
+    <div class="play-list-container">
+      <div class="play-list">
+        <div class="file ellipsis" *ngFor="let file of files; let i = index" (click)="openFile(file, i)">
+          <span class="file-title ellipsis">
+            {{ file.name }}
+          </span>
+          <ng-container *ngIf="file.artist">
+            {{ file.artist }}
+          </ng-container>
+          <ng-container *ngIf="file.artist && file.album">
+            &#8226;
+          </ng-container>
+          <ng-container *ngIf="file.album">
+            {{ file.album }} 
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
