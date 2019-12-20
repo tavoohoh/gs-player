@@ -122,6 +122,10 @@
               "devServerTarget": "gs-player-demo:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -159,6 +163,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "gs-player-demo"
 }

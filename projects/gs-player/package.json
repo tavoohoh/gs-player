@@ -1,6 +1,6 @@
 {
   "name": "gs-player",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Simple and easy to use Angular 8 music player",
   "keywords": [
     "angular",
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/tavoohoh/gs-player"
   },
-  "homepage": "https://tavoohoh.github.io/gs-player",
+  "homepage": "https://gs-player-demo.web.app/",
   "bugs": {
     "url" : "https://github.com/tavoohoh/gs-player/issues",
     "email" : "tavo_bajares@live.com"
