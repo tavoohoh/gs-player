@@ -4,12 +4,16 @@ Simple music player user interface that easily adapts to any website interface.
 
 ![Gs player - dark theme](https://raw.githubusercontent.com/tavoohoh/gs-player/master/src/assets/dark.png)
 
-Try the [demo](https://gs-player-demo.web.app/)
+Try the 
+<a href="https://gs-player-demo.web.app/" rel="noopener" target="_blank">demo</a>
 
 ##### Current version: Beta
 
-This libriry was inspired by [rxjs-audio](https://github.com/imsingh/rxjs-audio) and uses part of its source code.
-Thank you [imsingh](#https://github.com/imsingh/) for let me use your tutorial and library.
+This libriry was inspired by
+<a href="https://github.com/imsingh/rxjs-audio" rel="noopener" target="_blank">rxjs-audio</a>
+and uses part of its source code. Thank you
+<a href="https://github.com/imsingh/" rel="noopener" target="_blank">imsingh</a>
+for let me use your tutorial and library.
 
 # Table of contents:
 * [Installation](#installation)
