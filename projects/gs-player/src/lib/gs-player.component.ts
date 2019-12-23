@@ -62,19 +62,27 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
       const player = this.player.nativeElement;
 
       const elementColor: Array<HTMLElement> = [
+        // .gs-player .media-title
         player.children[0],
+        // .gs-player .media-text
         player.children[1].children[1].children[0],
+        // .gs-player .media-text
         player.children[1].children[1].children[2]
       ];
 
       const elementBackground: Array<HTMLElement> = [
+        // .slidecontainer .slider
         player.children[1].children[1].children[1].children[0]
       ];
 
       const svgFill: Array<HTMLElement> = [
+        // svg.icon "previous"
         player.children[1].children[0].children[0].children[0],
+        // svg.icon "play/pause"
         player.children[1].children[0].children[1].children[0],
+        // svg.icon "next"
         player.children[1].children[0].children[2].children[0],
+        // svg.icon "menu"
         player.children[1].children[2].children[0].children[0]
       ];
 
