@@ -1,6 +1,6 @@
 {
   "name": "gs-player-demo",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,7 +21,6 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "angular-cli-ghpages": "^0.6.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

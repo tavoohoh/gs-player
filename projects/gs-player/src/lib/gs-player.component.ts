@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class GsPlayerComponent implements OnInit, OnChanges {
   @Input() public files: Array<PlayerFile> = [];
-  @Input() private playerTheme: PlayerTheme;
+  @Input() public playerTheme: PlayerTheme;
   @Input() public playerConfig: PlayerConfig;
 
   public state: PlayerStreamState;
@@ -34,17 +34,29 @@ export class GsPlayerComponent implements OnInit, OnChanges {
       file: this.files[0]
     };
 
+    this.sanitizeTheme(
+      this.playerTheme.primary,
+      this.playerTheme.secondary
+    );
+
     this.playerService.stop();
     this.playStream(this.files[0].url);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.playerTheme.currentValue.primary || changes.playerTheme.currentValue.secondary) {
-      this.sanitizedPlayerTheme = this.sanitizer.bypassSecurityTrustStyle(
-        '--primary:' + changes.playerTheme.currentValue.primary + ';' +
-        '--secondary:' + changes.playerTheme.currentValue.secondary
+      this.sanitizeTheme(
+        changes.playerTheme.currentValue.primary,
+        changes.playerTheme.currentValue.secondary
       );
     }
+  }
+
+  sanitizeTheme(primary, secondary) {
+    this.sanitizedPlayerTheme = this.sanitizer.bypassSecurityTrustStyle(
+      '--primary:' + primary + ';' +
+      '--secondary:' + secondary
+    );
   }
 
   playStream(url) {
