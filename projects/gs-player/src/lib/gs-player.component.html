@@ -1,6 +1,6 @@
 <!-- main player -->
 <div class="'player-wrapper">
-  <div class="gs-player" [style]="sanitizedPlayerTheme">
+  <div class="gs-player" #player>
     <ng-container *ngTemplateOutlet="playlist"></ng-container>
 
     <div class="media-title" *ngIf="currentFile">
@@ -19,15 +19,12 @@
           <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M4 2v20h-2v-20h2zm18 0l-16 10 16 10v-20z" /></svg>
         </span>
-        <!-- play button -->
-        <span class="play-pause-btn" [class.disabled]="state?.error" (click)="play()" *ngIf="!state?.playing">
+        <!-- play/pause button -->
+        <span class="play-pause-btn" (click)="playPause()">
           <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M3 22v-20l18 10-18 10z" /></svg>
-        </span>
-        <!-- pause button -->
-        <span class="play-pause-btn" (click)="pause()" *ngIf="state?.playing">
-          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M10 24h-6v-24h6v24zm10-24h-6v24h6v-24z" /></svg>
+            <path *ngIf="!state?.playing" d="M3 22v-20l18 10-18 10z" />
+            <path *ngIf="state?.playing" d="M10 24h-6v-24h6v24zm10-24h-6v24h6v-24z" />
+          </svg>
         </span>
         <!-- next button -->
         <span [class.disabled]="isLastPlaying()" (click)="next()">

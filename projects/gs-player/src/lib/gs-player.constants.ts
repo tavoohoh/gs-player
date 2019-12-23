@@ -6,6 +6,6 @@ export const PlayerThemeLight: PlayerTheme = {
 };
 
 export const PlayerThemeDark: PlayerTheme = {
-  primary: '2c2c2c',
+  primary: '#2c2c2c',
   secondary: '#777777'
 };

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { GsPlayerService } from './gs-player.service';
 import { PlayerFile, PlayerCurrentFile, PlayerStreamState, PlayerTheme, PlayerConfig } from './gs-player.interface';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './gs-player.component.html',
   styleUrls: ['./gs-player.component.sass']
 })
-export class GsPlayerComponent implements OnInit, OnChanges {
+export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
   @Input() public files: Array<PlayerFile> = [];
   @Input() public playerTheme: PlayerTheme;
   @Input() public playerConfig: PlayerConfig;
@@ -17,6 +17,8 @@ export class GsPlayerComponent implements OnInit, OnChanges {
   public currentFile: PlayerCurrentFile;
   public showPlayList = false;
   public sanitizedPlayerTheme;
+
+  @ViewChild('player', { static: false }) player: ElementRef;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -34,17 +36,19 @@ export class GsPlayerComponent implements OnInit, OnChanges {
       file: this.files[0]
     };
 
-    this.sanitizeTheme(
-      this.playerTheme.primary,
-      this.playerTheme.secondary
-    );
-
     this.playerService.stop();
     this.playStream(this.files[0].url);
   }
 
+  ngAfterViewInit() {
+    this.sanitizeTheme(
+      this.playerTheme.primary,
+      this.playerTheme.secondary
+    );
+  }
+
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.playerTheme.currentValue.primary || changes.playerTheme.currentValue.secondary) {
+    if (this.player && changes.playerTheme.currentValue.primary || changes.playerTheme.currentValue.secondary) {
       this.sanitizeTheme(
         changes.playerTheme.currentValue.primary,
         changes.playerTheme.currentValue.secondary
@@ -52,11 +56,43 @@ export class GsPlayerComponent implements OnInit, OnChanges {
     }
   }
 
-  sanitizeTheme(primary, secondary) {
-    this.sanitizedPlayerTheme = this.sanitizer.bypassSecurityTrustStyle(
-      '--primary:' + primary + ';' +
-      '--secondary:' + secondary
-    );
+  sanitizeTheme(primary: string, secondary: string) {
+
+    if (this.player) {
+      const player = this.player.nativeElement;
+
+      const elementColor: Array<HTMLElement> = [
+        player.children[0],
+        player.children[1].children[1].children[0],
+        player.children[1].children[1].children[2]
+      ];
+
+      const elementBackground: Array<HTMLElement> = [
+        player.children[1].children[1].children[1].children[0]
+      ];
+
+      const svgFill: Array<HTMLElement> = [
+        player.children[1].children[0].children[0].children[0],
+        player.children[1].children[0].children[1].children[0],
+        player.children[1].children[0].children[2].children[0],
+        player.children[1].children[2].children[0].children[0]
+      ];
+
+      // color
+      elementColor.forEach(element => {
+        element.style.color = primary;
+      });
+
+      // background
+      elementBackground.forEach(element => {
+        element.style.background = secondary;
+      });
+
+      // fill
+      svgFill.forEach(svg => {
+        svg.style.fill = primary;
+      });
+    }
   }
 
   playStream(url) {
@@ -78,6 +114,14 @@ export class GsPlayerComponent implements OnInit, OnChanges {
 
   play() {
     this.playerService.play();
+  }
+
+  playPause() {
+    if (!this.state.playing) {
+      this.playerService.play();
+    } else {
+      this.playerService.pause();
+    }
   }
 
   stop() {
