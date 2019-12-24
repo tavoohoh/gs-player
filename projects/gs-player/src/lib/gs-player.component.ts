@@ -19,6 +19,7 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
   public sanitizedPlayerTheme;
 
   @ViewChild('player', { static: false }) player: ElementRef;
+  @ViewChild('trackSlider', { static: false }) trackSlider: ElementRef;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -103,10 +104,23 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
+  applyFill() {
+    const sliderProps = {
+      fill: '#0B1EDF',
+      background: 'rgba(255, 255, 255, 0.214)'
+    };
+
+    const slider = this.trackSlider.nativeElement;
+
+    const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
+    const bg = `linear-gradient(
+      90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage + 0.1}%
+    )`;
+    slider.style.background = bg;
+  }
+
   playStream(url) {
-    this.playerService.playStream(url).subscribe(events => {
-      // listening for fun here
-    });
+    this.playerService.playStream(url).subscribe(events => {});
   }
 
   openFile(file, index) {
@@ -157,6 +171,7 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   onSliderChangeEnd(change) {
+    this.applyFill();
     this.playerService.seekTo(change.srcElement.value);
   }
 
