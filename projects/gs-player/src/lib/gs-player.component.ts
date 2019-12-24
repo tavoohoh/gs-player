@@ -18,6 +18,11 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
   public showPlayList = false;
   public sanitizedPlayerTheme;
 
+  private sliderProps: {
+    fill: string,
+    background: string
+  };
+
   @ViewChild('player', { static: false }) player: ElementRef;
   @ViewChild('trackSlider', { static: false }) trackSlider: ElementRef;
 
@@ -42,7 +47,7 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   ngAfterViewInit() {
-    this.sanitizeTheme(
+    this.setThemeColor(
       this.playerTheme.primary,
       this.playerTheme.secondary
     );
@@ -50,15 +55,14 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.player && changes.playerTheme.currentValue.primary || changes.playerTheme.currentValue.secondary) {
-      this.sanitizeTheme(
+      this.setThemeColor(
         changes.playerTheme.currentValue.primary,
         changes.playerTheme.currentValue.secondary
       );
     }
   }
 
-  sanitizeTheme(primary: string, secondary: string) {
-
+  setThemeColor(primary: string, secondary: string) {
     if (this.player) {
       const player = this.player.nativeElement;
 
@@ -101,20 +105,22 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
       svgFill.forEach(svg => {
         svg.style.fill = primary;
       });
+
+      this.sliderProps = {
+        fill: primary,
+        background: secondary
+      };
+
+      this.setSliderFill();
     }
   }
 
-  applyFill() {
-    const sliderProps = {
-      fill: '#0B1EDF',
-      background: 'rgba(255, 255, 255, 0.214)'
-    };
-
+  setSliderFill() {
     const slider = this.trackSlider.nativeElement;
 
     const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
     const bg = `linear-gradient(
-      90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage + 0.1}%
+      90deg, ${this.sliderProps.fill} ${percentage}%, ${this.sliderProps.background} ${percentage + 0.1}%
     )`;
     slider.style.background = bg;
   }
@@ -171,7 +177,7 @@ export class GsPlayerComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   onSliderChangeEnd(change) {
-    this.applyFill();
+    this.setSliderFill();
     this.playerService.seekTo(change.srcElement.value);
   }
 
