@@ -6,7 +6,7 @@
     <div class="media-title" *ngIf="currentFile">
       <span class="file">{{ currentFile.file.name }}</span>
       <ng-container *ngIf="playerConfig && playerConfig.artistAlbumSeparator">
-        {{ playerConfig.artistAlbumSeparator }}
+        <span class="separator">&nbsp;{{ playerConfig.artistAlbumSeparator }}</span>
       </ng-container>
       {{ currentFile.file.artist }}
     </div>
