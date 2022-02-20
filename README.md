@@ -5,7 +5,7 @@ Simple music player user interface that easily adapts to any website interface.
 ![Gs player - dark theme](https://raw.githubusercontent.com/tavoohoh/gs-player/master/src/assets/dark.png)
 
 Try the 
-<a href="https://gs-player-demo.web.app/" rel="noopener" target="_blank">demo</a>
+<a href="https://angular-jbq8rq.stackblitz.io/" rel="noopener" target="_blank">demo</a>
 
 ##### Current version: Beta
 
